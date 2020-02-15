@@ -76,7 +76,7 @@ jobs:
         $url=$(ruby find-jruby-head-url.rb)
         echo "$url"
         curl --fail -L -o archive.tar.gz "$url"
-        tar.exe xzf archive.tar.gz
+        7z x $url -so | 7z x -aoa -si -ttar 
         mv jruby-* jruby-head
         ls jruby-head/bin
     - name: Add ruby alias
