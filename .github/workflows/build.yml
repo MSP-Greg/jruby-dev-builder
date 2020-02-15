@@ -76,9 +76,9 @@ jobs:
         $url=$(ruby find-jruby-head-url.rb)
         echo "$url"
         curl --fail -L -o archive.tar.gz "$url"
-        tar xzf archive.tar.gz
+        tar.exe xzf archive.tar.gz
         mv jruby-* jruby-head
-        dir jruby-head/bin
+        ls jruby-head/bin
     - name: Add ruby alias
       if: "!startsWith(matrix.os, 'windows')"
       run: |
