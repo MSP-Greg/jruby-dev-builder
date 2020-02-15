@@ -74,11 +74,15 @@ jobs:
       shell: bash
       run: |
         url=$(ruby find-jruby-head-url.rb)
+        url="https://oss.sonatype.org/content/repositories/snapshots/org/jruby/jruby-dist/9.2.10.0-SNAPSHOT/jruby-dist-9.2.10.0-20200214.210645-79-bin.zip"
         echo "$url"
-        curl --fail -L -o jruby-head.tar.gz "$url"
-        tar tf jruby-head.tar.gz | grep exe
+        pwd
+        df -h
+        curl --fail -L -o jruby-head.zip "$url"
+        unzip -l jruby-head.zip | grep exe
         mkdir -p ~/.rubies
-        tar xf jruby-head.tar.gz -C ~/.rubies
+        unzip -o jruby-head.zip
+        mv jruby-9.2.10.0-SNAPSHOT/ ~/.rubies/jruby-head
         cd ~/.rubies
         ls -l
         ls -l jruby-*/bin
