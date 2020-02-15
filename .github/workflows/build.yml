@@ -73,11 +73,11 @@ jobs:
     - name: Download latest jruby nightly archive
       shell: bash
       run: |
+        which tar
         url=$(ruby find-jruby-head-url.rb)
         echo "$url"
         curl --fail -L -o archive.tar.gz "$url"
-        tar tf archive.tar.gz | grep exe
-        tar xf archive.tar.gz
+        tar xzf archive.tar.gz
         ls -l
         ls -l jruby-*/bin
         mv jruby-* jruby-head
