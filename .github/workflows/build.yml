@@ -66,24 +66,19 @@ jobs:
 
     # Build
     - uses: actions/checkout@v2
-    # - name: Setup system ruby
-    #   uses: ruby/setup-ruby@v1
-    #   with:
-    #     ruby-version: 2.6
+    - name: Setup system ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6
     - name: Download latest jruby nightly archive
-      shell: bash
+      if: startsWith(matrix.os, 'windows')
       run: |
-        which tar
-        url=$(ruby find-jruby-head-url.rb)
+        $url=$(ruby find-jruby-head-url.rb)
         echo "$url"
         curl --fail -L -o archive.tar.gz "$url"
         tar xzf archive.tar.gz
-        ls -l
-        ls -l jruby-*/bin
         mv jruby-* jruby-head
-        ls -l jruby-head/bin
-        file jruby-head/bin/jruby.exe
-        ls -l jruby-head/bin/jruby.exe
+        dir jruby-head/bin
     - name: Add ruby alias
       if: "!startsWith(matrix.os, 'windows')"
       run: |
@@ -91,7 +86,6 @@ jobs:
         ln -s jruby ruby
     - name: Add ruby alias (Windows)
       if: startsWith(matrix.os, 'windows')
-      shell: bash
       run: |
         cd ~/.rubies/jruby-head/bin
         ls -l
